@@ -9,18 +9,18 @@
 {% block content %}
 <div class="index">
   <svg class="index-lines" viewBox="0 0 1440 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <!-- Top lines: x=0 → x=1440, concentrated y 0-160 -->
-    <path class="wt1" d="M0,55  C240,10  480,100 720,55  C960,10  1200,100 1440,55"  stroke="rgba(255,255,255,0.055)" stroke-width="1.4" fill="none"/>
-    <path class="wt2" d="M0,85  C240,40  480,130 720,85  C960,40  1200,130 1440,85"  stroke="rgba(255,255,255,0.038)" stroke-width="1.1" fill="none"/>
-    <path class="wt3" d="M0,115 C240,70  480,160 720,115 C960,70  1200,160 1440,115" stroke="rgba(255,255,255,0.025)" stroke-width="1"   fill="none"/>
-    <path class="wt4" d="M0,25  C360,-15 720,65  1080,25 C1260,5  1440,45  1440,25"  stroke="rgba(255,255,255,0.032)" stroke-width="0.9" fill="none"/>
-    <path class="wt5" d="M0,145 C240,100 480,190 720,145 C960,100 1200,190 1440,145" stroke="rgba(255,255,255,0.018)" stroke-width="0.8" fill="none"/>
-    <!-- Bottom lines: x=0 → x=1440, concentrated y 640-800 -->
-    <path class="wb1" d="M0,745 C240,790 480,700 720,745 C960,790 1200,700 1440,745" stroke="rgba(255,255,255,0.055)" stroke-width="1.4" fill="none"/>
-    <path class="wb2" d="M0,715 C240,760 480,670 720,715 C960,760 1200,670 1440,715" stroke="rgba(255,255,255,0.038)" stroke-width="1.1" fill="none"/>
-    <path class="wb3" d="M0,685 C240,730 480,640 720,685 C960,730 1200,640 1440,685" stroke="rgba(255,255,255,0.025)" stroke-width="1"   fill="none"/>
-    <path class="wb4" d="M0,775 C360,815 720,735 1080,775 C1260,795 1440,755 1440,775" stroke="rgba(255,255,255,0.032)" stroke-width="0.9" fill="none"/>
-    <path class="wb5" d="M0,655 C240,700 480,610 720,655 C960,700 1200,610 1440,655" stroke="rgba(255,255,255,0.018)" stroke-width="0.8" fill="none"/>
+    <!-- Lines above the search bar (around y=310-370) -->
+    <path class="wt1" d="M0,345 C240,310 480,380 720,345 C960,310 1200,380 1440,345" stroke="rgba(255,255,255,0.055)" stroke-width="1.4" fill="none"/>
+    <path class="wt2" d="M0,365 C240,330 480,400 720,365 C960,330 1200,400 1440,365" stroke="rgba(255,255,255,0.038)" stroke-width="1.1" fill="none"/>
+    <path class="wt3" d="M0,325 C240,290 480,360 720,325 C960,290 1200,360 1440,325" stroke="rgba(255,255,255,0.025)" stroke-width="1"   fill="none"/>
+    <path class="wt4" d="M0,310 C360,275 720,345 1080,310 C1260,292 1440,325 1440,310" stroke="rgba(255,255,255,0.032)" stroke-width="0.9" fill="none"/>
+    <path class="wt5" d="M0,378 C240,343 480,413 720,378 C960,343 1200,413 1440,378" stroke="rgba(255,255,255,0.018)" stroke-width="0.8" fill="none"/>
+    <!-- Lines below the search bar (around y=430-490) -->
+    <path class="wb1" d="M0,455 C240,490 480,420 720,455 C960,490 1200,420 1440,455" stroke="rgba(255,255,255,0.055)" stroke-width="1.4" fill="none"/>
+    <path class="wb2" d="M0,435 C240,470 480,400 720,435 C960,470 1200,400 1440,435" stroke="rgba(255,255,255,0.038)" stroke-width="1.1" fill="none"/>
+    <path class="wb3" d="M0,475 C240,510 480,440 720,475 C960,510 1200,440 1440,475" stroke="rgba(255,255,255,0.025)" stroke-width="1"   fill="none"/>
+    <path class="wb4" d="M0,490 C360,525 720,455 1080,490 C1260,508 1440,472 1440,490" stroke="rgba(255,255,255,0.032)" stroke-width="0.9" fill="none"/>
+    <path class="wb5" d="M0,422 C240,457 480,387 720,422 C960,457 1200,387 1440,422" stroke="rgba(255,255,255,0.018)" stroke-width="0.8" fill="none"/>
   </svg>
   {% include 'simple/simple_search.html' %}
   <div class="index-footer">
@@ -89,13 +89,22 @@
   .index-footer a:hover { color: #888; }
   .index-footer-pref svg { width: 14px; height: 14px; display: block; }
   /* Home search bar overrides */
+  body.index_endpoint #search {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100%;
+  }
   body.index_endpoint #search_header {
+    display: block !important;
     background: transparent !important;
     border: none !important;
     padding: 0 !important;
+    width: min(620px, 90vw) !important;
+    margin: 0 auto !important;
   }
   body.index_endpoint #search_view {
-    width: min(620px, 90vw);
+    width: 100% !important;
   }
   body.index_endpoint .search_box {
     border-radius: 28px !important;
