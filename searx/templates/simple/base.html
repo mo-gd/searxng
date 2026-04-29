@@ -318,6 +318,95 @@
       display: block;
     }
     body.results_endpoint #infoboxes aside.infobox .kp-related input[type="submit"]:hover { text-decoration: underline; }
+
+    /* ══════════════════════════════════════════════════════════════
+       Mobile — ≤ 640px
+       ══════════════════════════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      /* Tighter side padding */
+      body.results_endpoint { --rl: 12px; }
+
+      /* Nav: icons only, no text labels */
+      #links_on_top a span { display: none !important; }
+      #links_on_top { gap: 4px !important; min-height: 40px !important; }
+
+      /* Search header */
+      body.results_endpoint #search_header { padding: 8px var(--rl) 0 !important; }
+      body.results_endpoint #search_view { width: 100% !important; }
+      /* Prevent iOS auto-zoom on input focus */
+      #q { font-size: 16px !important; padding: 8px 12px !important; }
+
+      /* Categories: horizontal scroll, no wrap */
+      body.results_endpoint #categories {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none !important;
+        /* negative margin to reach edge, then padding back in */
+        margin-left: calc(-1 * var(--rl)) !important;
+        margin-right: calc(-1 * var(--rl)) !important;
+        padding-left: var(--rl) !important;
+        padding-right: var(--rl) !important;
+        width: calc(100% + 2 * var(--rl)) !important;
+        box-sizing: border-box !important;
+      }
+      body.results_endpoint #categories::-webkit-scrollbar { display: none; }
+      body.results_endpoint #categories_container { flex-wrap: nowrap !important; width: max-content !important; }
+      body.results_endpoint .category_button {
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+        white-space: nowrap !important;
+      }
+
+      /* Results area */
+      body.results_endpoint #results { padding: 0 var(--rl) 20px !important; }
+      body.results_endpoint #urls { width: 100% !important; }
+
+      /* Result cards: tighter, smaller text */
+      article.result { padding: 14px 0 !important; }
+      article.result h3 { font-size: 16px !important; margin: 3px 0 4px !important; }
+      article.result .content { font-size: 13px !important; line-height: 1.5 !important; }
+      article.result .url_wrapper { font-size: 12px !important; }
+      article.result .favicon { width: 18px !important; height: 18px !important; }
+      article.result .favicon img { width: 14px !important; height: 14px !important; }
+
+      /* Knowledge panel: full width below results on mobile */
+      body.results_endpoint #sidebar { width: 100% !important; box-sizing: border-box !important; }
+      body.results_endpoint #infoboxes aside.infobox .attributes dt { width: 90px !important; }
+
+      /* Pagination: hide number buttons, keep prev/next */
+      body.results_endpoint .numbered_pagination { display: none !important; }
+      body.results_endpoint #pagination {
+        padding: 0 var(--rl) 20px !important;
+        display: flex !important;
+        gap: 12px !important;
+      }
+      body.results_endpoint #pagination .previous_page,
+      body.results_endpoint #pagination .next_page { flex: 1; }
+      body.results_endpoint #pagination button {
+        width: 100% !important;
+        padding: 12px 16px !important;
+        min-height: 44px !important;
+        font-size: 14px !important;
+        justify-content: center !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+      }
+
+      /* Home page */
+      body.index_endpoint #search_view { width: 95vw !important; }
+      body.index_endpoint .search_box { height: 48px !important; border-radius: 24px !important; }
+      body.index_endpoint #q { height: 48px !important; font-size: 16px !important; padding: 0 14px !important; }
+      body.index_endpoint #send_search,
+      body.index_endpoint #clear_search { height: 48px !important; }
+    }
+
+    /* Very small screens — ≤ 360px */
+    @media (max-width: 360px) {
+      body.results_endpoint { --rl: 8px; }
+      body.results_endpoint .category_button { padding: 6px 8px !important; }
+      article.result h3 { font-size: 15px !important; }
+    }
   </style>
 </head>
 <body class="{{ endpoint }}_endpoint" >
