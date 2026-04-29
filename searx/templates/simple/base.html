@@ -28,8 +28,8 @@
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/favicon.png') }}">
   <link rel="manifest" href="{{ url_for('manifest') }}" />
   <style>
-    :root,
-    .theme-dark, .theme-auto, .theme-light {
+    /* ── Dark theme vars (theme-dark + auto in dark system) ─────────── */
+    .theme-dark {
       --color-base-background: #1c1c1d;
       --color-base-background-mobile: #1c1c1d;
       --color-header-background: #111113;
@@ -61,60 +61,276 @@
       --color-btn-font: #fff;
       --color-categories-item-selected-font: #6b9fd4;
       --color-categories-item-border-selected: #6b9fd4;
+      --x-bg: #1c1c1d;
+      --x-header: #111113;
+      --x-border: #252528;
+      --x-search-box: #2a2a2d;
+      --x-search-border: #3d3d40;
+      --x-nav-color: #a0a0a0;
     }
-    @media (prefers-color-scheme: light) {
-      :root, .theme-auto {
+    @media (prefers-color-scheme: dark) {
+      .theme-auto {
         --color-base-background: #1c1c1d;
         --color-base-background-mobile: #1c1c1d;
-        --color-base-font: #d4d4d4;
         --color-header-background: #111113;
+        --color-header-border: #252528;
         --color-footer-background: #111113;
+        --color-footer-border: #252528;
+        --color-base-font: #d4d4d4;
+        --color-base-font-rgb: 212, 212, 212;
+        --color-url-font: #6b9fd4;
+        --color-url-visited-font: #9e7ac0;
+        --color-result-background: #232325;
+        --color-result-border: #2d2d30;
+        --color-result-link-font: #6b9fd4;
+        --color-result-link-visited-font: #9e7ac0;
+        --color-result-publishdate-font: #777;
+        --color-result-engines-font: #666;
+        --color-result-description-highlight-font: #e8e8e8;
+        --color-result-detail-background: #1a1a1c;
+        --color-result-detail-font: #ccc;
+        --color-search-background: #2a2a2d;
+        --color-search-border: #3d3d40;
+        --color-search-font: #e8e8e8;
+        --color-search-shadow: none;
+        --color-autocomplete-background: #222224;
+        --color-autocomplete-background-hover: #2d2d30;
+        --color-autocomplete-border: #3d3d40;
+        --color-autocomplete-font: #d4d4d4;
+        --color-btn-background: #4a90d9;
+        --color-btn-font: #fff;
+        --color-categories-item-selected-font: #6b9fd4;
+        --color-categories-item-border-selected: #6b9fd4;
+        --x-bg: #1c1c1d;
+        --x-header: #111113;
+        --x-border: #252528;
+        --x-search-box: #2a2a2d;
+        --x-search-border: #3d3d40;
+        --x-nav-color: #a0a0a0;
       }
     }
-    body { background: #1c1c1d; }
+
+    /* ── Fix: background covers entire document, not just viewport ─── */
+    .theme-dark { background: #1c1c1d; }
+    .theme-dark body { background: #1c1c1d; min-height: 100%; }
+    @media (prefers-color-scheme: dark) {
+      .theme-auto { background: #1c1c1d; }
+      .theme-auto body { background: #1c1c1d; min-height: 100%; }
+    }
+
+    /* ── Nav ─────────────────────────────────────────────────────────── */
+    #links_on_top {
+      background: #1c1c1d !important;
+      border-bottom: 1px solid #252528 !important;
+    }
+    .theme-dark #links_on_top a,
+    .theme-auto #links_on_top a { color: #888 !important; }
+    #links_on_top a svg { color: inherit !important; }
+    #links_on_top a:hover { color: #e0e0e0 !important; }
+    body.index_endpoint footer { display: none !important; }
+
+    /* ── Footer ─────────────────────────────────────────────────────── */
+    footer {
+      background: #1c1c1d !important;
+      border-top: 1px solid #252528 !important;
+      color: #444 !important;
+      font-size: 12px;
+    }
+    footer a { color: #555 !important; }
+    footer a:hover { color: #999 !important; }
+
+    /* ── Alignment anchor: all results-page sections share the same left ── */
+    body.results_endpoint {
+      --rl: clamp(16px, 11.5vw, 160px);
+    }
+
+    /* ── Header: column layout, aligné à gauche, border plein écran ─── */
+    body.results_endpoint #search_header {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      background: #1c1c1d !important;
+      border-bottom: 1px solid #303033 !important;
+      padding: 10px var(--rl) 0 !important;
+    }
+    body.results_endpoint #search_view {
+      width: min(660px, 100%) !important;
+    }
+
+    /* ── Search box ──────────────────────────────────────────────────── */
     .search_box {
       border-radius: 24px !important;
-      border: 1.5px solid #3d3d40 !important;
-      background: #2a2a2d !important;
+      border: 1px solid #3a3a3d !important;
+      background: #252527 !important;
       box-shadow: none !important;
+      transition: border-color .2s, box-shadow .2s !important;
     }
     .search_box:focus-within {
       border-color: #555 !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,.4) !important;
+      box-shadow: 0 2px 12px rgba(0,0,0,.5) !important;
     }
     #q {
       font-size: 16px !important;
-      padding: 10px 14px !important;
+      padding: 10px 16px !important;
       background: transparent !important;
       color: #e8e8e8 !important;
     }
     #q::placeholder { color: #555 !important; }
-    #send_search, #clear_search {
-      background: transparent !important;
-      border: none !important;
-    }
-    #send_search svg, #clear_search svg { color: #888; }
+    #send_search, #clear_search { background: transparent !important; border: none !important; }
+    #send_search svg, #clear_search svg { color: #777; }
     #send_search:hover svg, #clear_search:hover svg { color: #ccc; }
-    article.result {
+
+    /* ── Categories: pas de padding ajouté (déjà dans #search_header paddé)
+          L'indicateur (margin-bottom: -1px) chevauche la barre de #search_header ── */
+    body.results_endpoint #categories {
+      background: transparent !important;
+      border-bottom: none !important;
+      padding: 6px 0 0 !important;
+      margin-top: 0 !important;
+    }
+    body.results_endpoint #categories_container { gap: 0 !important; }
+    body.results_endpoint .category_button {
       background: transparent !important;
       border: none !important;
-      border-bottom: 1px solid #252528 !important;
+      border-bottom: 2px solid transparent !important;
       border-radius: 0 !important;
-      padding: 14px 0 !important;
-      box-shadow: none !important;
+      color: #888 !important;
+      padding: 8px 16px !important;
+      margin-bottom: -1px !important;
+      font-size: 13px !important;
+      transition: color .15s !important;
+    }
+    body.results_endpoint .category_button .category_name { display: inline !important; }
+    body.results_endpoint .category_button svg { display: none !important; }
+    body.results_endpoint .category_button:hover { color: #e0e0e0 !important; }
+    body.results_endpoint .category_button.selected {
+      color: #e8e8e8 !important;
+      border-bottom: 2px solid #fff !important;
+    }
+
+    /* ── Results + pagination: same left as header ───────────────────── */
+    body.results_endpoint #results {
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 4px var(--rl) 40px !important;
+    }
+    body.results_endpoint #sidebar { display: none !important; }
+    body.results_endpoint #urls { width: min(660px, 100%) !important; float: none !important; }
+    body.results_endpoint #pagination { padding: 0 var(--rl) 32px !important; max-width: none !important; margin: 0 !important; }
+    body.results_endpoint #pagination button {
+      background: #252527 !important; border: 1px solid #3a3a3d !important;
+      color: #d4d4d4 !important; border-radius: 20px !important; padding: 8px 20px !important;
+    }
+    body.results_endpoint #pagination button:hover { background: #2e2e31 !important; }
+
+    /* ── Result cards (Google-style) ─────────────────────────────────── */
+    article.result {
+      background: transparent !important; border: none !important;
+      border-bottom: 1px solid #222224 !important; border-radius: 0 !important;
+      padding: 18px 0 !important; box-shadow: none !important;
     }
     article.result:last-child { border-bottom: none !important; }
-    footer {
-      background: #111113 !important;
-      border-top: 1px solid #252528 !important;
-      color: #555 !important;
-      font-size: 12px;
+    article.result .url_wrapper { font-size: 13px !important; color: #777 !important; }
+    article.result .favicon { width: 20px !important; height: 20px !important; }
+    article.result .favicon img { width: 16px !important; height: 16px !important; border-radius: 50%; }
+    article.result h3 { margin: 4px 0 5px !important; font-size: 18px !important; font-weight: 400 !important; }
+    article.result h3 a { color: #8ab4f8 !important; text-decoration: none !important; }
+    article.result h3 a:hover { text-decoration: underline !important; }
+    article.result .content { font-size: 14px !important; color: #bdc1c6 !important; line-height: 1.58 !important; margin: 0 !important; }
+    article.result .engines { display: none !important; }
+    article.result .result_footer { display: none !important; }
+
+    /* ── Results layout: main column + knowledge panel ───────────── */
+    body.results_endpoint .results-layout {
+      display: flex;
+      gap: 48px;
+      align-items: flex-start;
     }
-    footer a { color: #666 !important; }
-    footer a:hover { color: #999 !important; }
-    #links_on_top {
-      background: #111113 !important;
-      border-bottom: 1px solid #252528 !important;
+    body.results_endpoint .results-main { min-width: 0; }
+
+    /* ── Knowledge Panel (Google-style) ──────────────────────────── */
+    body.results_endpoint .knowledge-panel {
+      width: 320px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 16px;
+      max-height: calc(100vh - 32px);
+      overflow-y: auto;
+    }
+    .knowledge-panel aside.infobox {
+      background: #1e1e20;
+      border: 1px solid #2a2a2d;
+      border-radius: 12px;
+      overflow: hidden;
+      font-size: 14px;
+      color: #d4d4d4;
+      margin-bottom: 12px;
+    }
+    .knowledge-panel aside.infobox .kp-img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .knowledge-panel aside.infobox .kp-body { padding: 16px; }
+    .knowledge-panel aside.infobox h2.title {
+      font-size: 20px;
+      font-weight: 400;
+      color: #e8e8e8;
+      margin: 0 0 6px;
+      line-height: 1.3;
+    }
+    .knowledge-panel aside.infobox p.kp-desc {
+      font-size: 13px;
+      color: #9aa0a6;
+      line-height: 1.6;
+      margin: 0 0 12px;
+    }
+    .knowledge-panel aside.infobox .attributes { border-top: 1px solid #2a2a2d; padding-top: 4px; }
+    .knowledge-panel aside.infobox .attributes dl {
+      display: flex;
+      gap: 8px;
+      padding: 6px 0;
+      margin: 0;
+      border-bottom: 1px solid #222224;
+      font-size: 13px;
+    }
+    .knowledge-panel aside.infobox .attributes dl:last-child { border-bottom: none; }
+    .knowledge-panel aside.infobox .attributes dt { color: #777; flex-shrink: 0; width: 110px; }
+    .knowledge-panel aside.infobox .attributes dd { color: #d4d4d4; margin: 0; }
+    .knowledge-panel aside.infobox .urls {
+      border-top: 1px solid #2a2a2d;
+      padding: 10px 16px;
+    }
+    .knowledge-panel aside.infobox .urls ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .knowledge-panel aside.infobox .urls a { color: #8ab4f8; font-size: 13px; text-decoration: none; }
+    .knowledge-panel aside.infobox .urls a:hover { text-decoration: underline; }
+    .knowledge-panel aside.infobox .kp-related {
+      border-top: 1px solid #2a2a2d;
+      padding: 10px 16px;
+      font-size: 13px;
+    }
+    .knowledge-panel aside.infobox .kp-related h3 { font-size: 13px; color: #888; margin: 0 0 6px; font-weight: 400; }
+    .knowledge-panel aside.infobox .kp-related input[type="submit"] {
+      background: none;
+      border: none;
+      color: #8ab4f8;
+      cursor: pointer;
+      padding: 2px 0;
+      font-size: 13px;
+      display: block;
+    }
+    .knowledge-panel aside.infobox .kp-related input[type="submit"]:hover { text-decoration: underline; }
+    @media (max-width: 1100px) {
+      body.results_endpoint .results-layout { flex-direction: column; }
+      body.results_endpoint .knowledge-panel { width: min(660px, 100%); position: static; max-height: none; }
     }
   </style>
 </head>

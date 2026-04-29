@@ -1,8 +1,111 @@
 {% extends "simple/base.html" %}
 {% from 'simple/icons.html' import icon_big %}
+
+{# Remove About/Preferences nav on home page #}
+{% block linkto_about %}{% endblock %}
+{% block linkto_donate %}{% endblock %}
+{% block linkto_preferences %}{% endblock %}
+
 {% block content %}
 <div class="index">
-    <div class="title"><h1>SearXNG</h1></div>
-    {% include 'simple/simple_search.html' %}
+  <svg class="index-lines" viewBox="0 0 1440 800" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- Top lines: x=0 → x=1440, concentrated y 0-160 -->
+    <path class="wt1" d="M0,55  C240,10  480,100 720,55  C960,10  1200,100 1440,55"  stroke="rgba(255,255,255,0.055)" stroke-width="1.4" fill="none"/>
+    <path class="wt2" d="M0,85  C240,40  480,130 720,85  C960,40  1200,130 1440,85"  stroke="rgba(255,255,255,0.038)" stroke-width="1.1" fill="none"/>
+    <path class="wt3" d="M0,115 C240,70  480,160 720,115 C960,70  1200,160 1440,115" stroke="rgba(255,255,255,0.025)" stroke-width="1"   fill="none"/>
+    <path class="wt4" d="M0,25  C360,-15 720,65  1080,25 C1260,5  1440,45  1440,25"  stroke="rgba(255,255,255,0.032)" stroke-width="0.9" fill="none"/>
+    <path class="wt5" d="M0,145 C240,100 480,190 720,145 C960,100 1200,190 1440,145" stroke="rgba(255,255,255,0.018)" stroke-width="0.8" fill="none"/>
+    <!-- Bottom lines: x=0 → x=1440, concentrated y 640-800 -->
+    <path class="wb1" d="M0,745 C240,790 480,700 720,745 C960,790 1200,700 1440,745" stroke="rgba(255,255,255,0.055)" stroke-width="1.4" fill="none"/>
+    <path class="wb2" d="M0,715 C240,760 480,670 720,715 C960,760 1200,670 1440,715" stroke="rgba(255,255,255,0.038)" stroke-width="1.1" fill="none"/>
+    <path class="wb3" d="M0,685 C240,730 480,640 720,685 C960,730 1200,640 1440,685" stroke="rgba(255,255,255,0.025)" stroke-width="1"   fill="none"/>
+    <path class="wb4" d="M0,775 C360,815 720,735 1080,775 C1260,795 1440,755 1440,775" stroke="rgba(255,255,255,0.032)" stroke-width="0.9" fill="none"/>
+    <path class="wb5" d="M0,655 C240,700 480,610 720,655 C960,700 1200,610 1440,655" stroke="rgba(255,255,255,0.018)" stroke-width="0.8" fill="none"/>
+  </svg>
+  {% include 'simple/simple_search.html' %}
+  <div class="index-footer">SearXNG</div>
 </div>
+<style>
+  body.index_endpoint { overflow: hidden; height: 100dvh; }
+  body.index_endpoint #links_on_top { display: none; }
+  .index {
+    position: relative;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .index-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  @keyframes wt {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-14px); }
+  }
+  @keyframes wb {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(14px); }
+  }
+  .wt1 { animation: wt 8s   ease-in-out infinite 0s;    transform-box: fill-box; transform-origin: center; }
+  .wt2 { animation: wt 10s  ease-in-out infinite 1.2s;  transform-box: fill-box; transform-origin: center; }
+  .wt3 { animation: wt 9s   ease-in-out infinite 2.5s;  transform-box: fill-box; transform-origin: center; }
+  .wt4 { animation: wt 11s  ease-in-out infinite 0.6s;  transform-box: fill-box; transform-origin: center; }
+  .wt5 { animation: wt 7.5s ease-in-out infinite 3.1s;  transform-box: fill-box; transform-origin: center; }
+  .wb1 { animation: wb 8s   ease-in-out infinite 0.4s;  transform-box: fill-box; transform-origin: center; }
+  .wb2 { animation: wb 10s  ease-in-out infinite 1.8s;  transform-box: fill-box; transform-origin: center; }
+  .wb3 { animation: wb 9s   ease-in-out infinite 0s;    transform-box: fill-box; transform-origin: center; }
+  .wb4 { animation: wb 11s  ease-in-out infinite 2.2s;  transform-box: fill-box; transform-origin: center; }
+  .wb5 { animation: wb 7.5s ease-in-out infinite 1s;    transform-box: fill-box; transform-origin: center; }
+  .index form { position: relative; z-index: 1; }
+  .index-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #3a3a3d;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 1;
+    user-select: none;
+  }
+  /* Home search bar overrides */
+  body.index_endpoint #search_header {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+  body.index_endpoint #search_view {
+    width: min(620px, 90vw);
+  }
+  body.index_endpoint .search_box {
+    border-radius: 28px !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    background: rgba(255,255,255,0.06) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    height: 54px !important;
+    transition: border-color 0.25s, box-shadow 0.25s !important;
+  }
+  body.index_endpoint .search_box:focus-within {
+    border-color: rgba(255,255,255,0.22) !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08) !important;
+    background: rgba(255,255,255,0.09) !important;
+  }
+  body.index_endpoint #q {
+    font-size: 17px !important;
+    padding: 0 18px !important;
+    height: 54px !important;
+    color: #f0f0f0 !important;
+    letter-spacing: 0.01em;
+  }
+  body.index_endpoint #send_search,
+  body.index_endpoint #clear_search { height: 54px !important; }
+</style>
 {% endblock %}

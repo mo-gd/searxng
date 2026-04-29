@@ -24,55 +24,59 @@
     {%- include 'simple/elements/answers.html' -%}
   {%- endif %}
 
-    <div id="sidebar">
+  <div class="results-layout">
+    <div class="results-main">
 
-        {%- if number_of_results != '0' -%}
-        <p id="result_count"><small>{{ _('Number of results') }}: {{ number_of_results }}</small></p>
-        {%- endif -%}
+      {%- if corrections -%}
+        {%- include 'simple/elements/corrections.html' -%}
+      {%- endif -%}
 
-        {%- if infoboxes -%}
-          <div id="infoboxes">
-            <details open class="sidebar-collapsible">
-              <summary class="title">{{ _('Info') }}</summary>
-              {%- for infobox in infoboxes -%}
-                {%- include 'simple/elements/infobox.html' -%}
-              {%- endfor -%}
-            </details>
-          </div>
-        {%- endif -%}
+      <div id="urls" role="main">
+      {% for result in results %}
+          {% if result.open_group and not only_template %}<div class="template_group_{{ result['template']|replace('.html', '') }}">{% endif %}
+          {% set index = loop.index %}
+          {% include get_result_template('simple', result['template']) %}
+          {% if result.close_group and not only_template %}</div>{% endif %}
+      {% endfor %}
+      {% if not results and not answers %}
+          {% include 'simple/messages/no_results.html' %}
+      {% endif %}
+      </div>
 
-        {%- if suggestions -%}
-          {%- include 'simple/elements/suggestions.html' -%}
-        {%- endif -%}
-
-        {%- include 'simple/elements/engines_msg.html' -%}
-
-        {%- if method == 'POST' -%}
-          {%- include 'simple/elements/search_url.html' -%}
-        {%- endif -%}
-
-        {%- if search_formats -%}
-          {%- include 'simple/elements/apis.html' -%}
-        {%- endif -%}
-
-        <div id="sidebar-end-collapsible"></div>
     </div>
 
-    {%- if corrections -%}
-      {%- include 'simple/elements/corrections.html' -%}
+    {%- if infoboxes -%}
+    <div class="knowledge-panel">
+      {%- for infobox in infoboxes -%}
+        {%- include 'simple/elements/infobox.html' -%}
+      {%- endfor -%}
+    </div>
     {%- endif -%}
+  </div>
 
-    <div id="urls" role="main">
-    {% for result in results %}
-        {% if result.open_group and not only_template %}<div class="template_group_{{ result['template']|replace('.html', '') }}">{% endif %}
-        {% set index = loop.index %}
-        {% include get_result_template('simple', result['template']) %}
-        {% if result.close_group and not only_template %}</div>{% endif %}
-    {% endfor %}
-    {% if not results and not answers %}
-        {% include 'simple/messages/no_results.html' %}
-    {% endif %}
-    </div>
+  <div id="sidebar">
+
+      {%- if number_of_results != '0' -%}
+      <p id="result_count"><small>{{ _('Number of results') }}: {{ number_of_results }}</small></p>
+      {%- endif -%}
+
+      {%- if suggestions -%}
+        {%- include 'simple/elements/suggestions.html' -%}
+      {%- endif -%}
+
+      {%- include 'simple/elements/engines_msg.html' -%}
+
+      {%- if method == 'POST' -%}
+        {%- include 'simple/elements/search_url.html' -%}
+      {%- endif -%}
+
+      {%- if search_formats -%}
+        {%- include 'simple/elements/apis.html' -%}
+      {%- endif -%}
+
+      <div id="sidebar-end-collapsible"></div>
+  </div>
+
     <div id="backToTop">
       <a href="#" aria-label="{{ _('Back to top') }}">{{ icon_small('navigate-up') }}</a>
     </div>
