@@ -27,6 +27,96 @@
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/favicon.png') }}">
   <link rel="manifest" href="{{ url_for('manifest') }}" />
+  <style>
+    :root,
+    .theme-dark, .theme-auto, .theme-light {
+      --color-base-background: #1c1c1d;
+      --color-base-background-mobile: #1c1c1d;
+      --color-header-background: #111113;
+      --color-header-border: #252528;
+      --color-footer-background: #111113;
+      --color-footer-border: #252528;
+      --color-base-font: #d4d4d4;
+      --color-base-font-rgb: 212, 212, 212;
+      --color-url-font: #6b9fd4;
+      --color-url-visited-font: #9e7ac0;
+      --color-result-background: #232325;
+      --color-result-border: #2d2d30;
+      --color-result-link-font: #6b9fd4;
+      --color-result-link-visited-font: #9e7ac0;
+      --color-result-publishdate-font: #777;
+      --color-result-engines-font: #666;
+      --color-result-description-highlight-font: #e8e8e8;
+      --color-result-detail-background: #1a1a1c;
+      --color-result-detail-font: #ccc;
+      --color-search-background: #2a2a2d;
+      --color-search-border: #3d3d40;
+      --color-search-font: #e8e8e8;
+      --color-search-shadow: none;
+      --color-autocomplete-background: #222224;
+      --color-autocomplete-background-hover: #2d2d30;
+      --color-autocomplete-border: #3d3d40;
+      --color-autocomplete-font: #d4d4d4;
+      --color-btn-background: #4a90d9;
+      --color-btn-font: #fff;
+      --color-categories-item-selected-font: #6b9fd4;
+      --color-categories-item-border-selected: #6b9fd4;
+    }
+    @media (prefers-color-scheme: light) {
+      :root, .theme-auto {
+        --color-base-background: #1c1c1d;
+        --color-base-background-mobile: #1c1c1d;
+        --color-base-font: #d4d4d4;
+        --color-header-background: #111113;
+        --color-footer-background: #111113;
+      }
+    }
+    body { background: #1c1c1d; }
+    .search_box {
+      border-radius: 24px !important;
+      border: 1.5px solid #3d3d40 !important;
+      background: #2a2a2d !important;
+      box-shadow: none !important;
+    }
+    .search_box:focus-within {
+      border-color: #555 !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,.4) !important;
+    }
+    #q {
+      font-size: 16px !important;
+      padding: 10px 14px !important;
+      background: transparent !important;
+      color: #e8e8e8 !important;
+    }
+    #q::placeholder { color: #555 !important; }
+    #send_search, #clear_search {
+      background: transparent !important;
+      border: none !important;
+    }
+    #send_search svg, #clear_search svg { color: #888; }
+    #send_search:hover svg, #clear_search:hover svg { color: #ccc; }
+    article.result {
+      background: transparent !important;
+      border: none !important;
+      border-bottom: 1px solid #252528 !important;
+      border-radius: 0 !important;
+      padding: 14px 0 !important;
+      box-shadow: none !important;
+    }
+    article.result:last-child { border-bottom: none !important; }
+    footer {
+      background: #111113 !important;
+      border-top: 1px solid #252528 !important;
+      color: #555 !important;
+      font-size: 12px;
+    }
+    footer a { color: #666 !important; }
+    footer a:hover { color: #999 !important; }
+    #links_on_top {
+      background: #111113 !important;
+      border-bottom: 1px solid #252528 !important;
+    }
+  </style>
 </head>
 <body class="{{ endpoint }}_endpoint" >
   <main id="main_{{  self._TemplateReference__context.name|replace("simple/", "")|replace(".html", "") }}" class="{{body_class}}">
