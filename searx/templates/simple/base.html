@@ -23,9 +23,7 @@
   {% block head %}
   <link title="{{ instance_name }}" type="application/opensearchdescription+xml" rel="search" href="{{ opensearch_url }}">
   {% endblock %}
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" sizes="any">
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.svg') }}" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+  <link rel="icon" href="data:,">
   <link rel="manifest" href="{{ url_for('manifest') }}" />
   <style>
     /* ── Dark theme vars (theme-dark + auto in dark system) ─────────── */
@@ -213,6 +211,7 @@
       max-width: none !important;
       margin: 0 !important;
       padding: 4px var(--rl) 40px !important;
+      overflow: hidden;
     }
     /* Hide sidebar when no infoboxes; hide everything inside it except infoboxes */
     body.results_endpoint #sidebar { display: none !important; }
@@ -408,15 +407,7 @@
       /* Categories: horizontal scroll, no wrap */
       body.results_endpoint #categories {
         overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch;
         scrollbar-width: none !important;
-        /* negative margin to reach edge, then padding back in */
-        margin-left: calc(-1 * var(--rl)) !important;
-        margin-right: calc(-1 * var(--rl)) !important;
-        padding-left: var(--rl) !important;
-        padding-right: var(--rl) !important;
-        width: calc(100% + 2 * var(--rl)) !important;
-        box-sizing: border-box !important;
       }
       body.results_endpoint #categories::-webkit-scrollbar { display: none; }
       body.results_endpoint #categories_container { flex-wrap: nowrap !important; width: max-content !important; }

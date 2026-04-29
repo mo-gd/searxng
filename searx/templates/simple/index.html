@@ -29,13 +29,23 @@
   </div>
 </div>
 <style>
-  body.index_endpoint { overflow: hidden; height: 100dvh; height: 100vh; height: 100dvh; }
-  body.index_endpoint #links_on_top { display: none; }
-  .index {
-    position: relative;
-    height: 100dvh;
+  body.index_endpoint {
+    display: flex;
+    flex-direction: column;
     height: 100vh;
     height: 100dvh;
+    overflow: hidden;
+  }
+  body.index_endpoint #links_on_top { display: none; }
+  body.index_endpoint main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .index {
+    flex: 1;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
