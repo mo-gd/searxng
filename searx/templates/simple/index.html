@@ -23,7 +23,10 @@
     <path class="wb5" d="M0,655 C240,700 480,610 720,655 C960,700 1200,610 1440,655" stroke="rgba(255,255,255,0.018)" stroke-width="0.8" fill="none"/>
   </svg>
   {% include 'simple/simple_search.html' %}
-  <div class="index-footer">SearXNG</div>
+  <div class="index-footer">
+    <a href="{{ url_for('info', pagename='about') }}">SearXNG</a>
+    <a href="{{ url_for('preferences') }}" class="index-footer-pref">{{ icon_big('settings') }}</a>
+  </div>
 </div>
 <style>
   body.index_endpoint { overflow: hidden; height: 100dvh; }
@@ -73,8 +76,14 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     z-index: 1;
-    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
   }
+  .index-footer a { color: #3a3a3d; text-decoration: none; }
+  .index-footer a:hover { color: #888; }
+  .index-footer-pref svg { width: 14px; height: 14px; display: block; }
   /* Home search bar overrides */
   body.index_endpoint #search_header {
     background: transparent !important;
