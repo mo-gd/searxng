@@ -82,10 +82,7 @@ class ViewsTestCase(SearxTestCase):  # pylint: disable=too-many-public-methods
     def test_index_empty(self):
         result = self.client.post('/')
         self.assertEqual(result.status_code, 200)
-        self.assertIn(
-            b'<div class="title"><h1>SearXNG</h1></div>',
-            result.data,
-        )
+        self.assertIn(b'<title>SearXNG</title>', result.data)
 
     def test_index_html_post(self):
         result = self.client.post('/', data={'q': 'test'})
@@ -100,7 +97,7 @@ class ViewsTestCase(SearxTestCase):  # pylint: disable=too-many-public-methods
     def test_search_empty_html(self):
         result = self.client.post('/search', data={'q': ''})
         self.assertEqual(result.status_code, 200)
-        self.assertIn(b'<div class="title"><h1>SearXNG</h1></div>', result.data)
+        self.assertIn(b'<title>SearXNG</title>', result.data)
 
     def test_search_empty_json(self):
         result = self.client.post('/search', data={'q': '', 'format': 'json'})
